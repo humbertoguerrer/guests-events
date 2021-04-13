@@ -1,22 +1,38 @@
 package com.hgn.guestsevents.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Guest {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private Integer age;
 	private String cpf;
+	
+	@ManyToOne
+	@JoinColumn(name="event_id")
 	private Event event;
 
-	private List<GuestFamily> family = new ArrayList<>();
+	@OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
+	private List<GuestFamily> family;
 
 	public Guest() {
 	}
 
-	public Guest(String name, Integer age, String cpf, Event event, List<GuestFamily> family) {
+	public Guest(Long id, String name, Integer age, String cpf, Event event, List<GuestFamily> family) {
+		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.cpf = cpf;

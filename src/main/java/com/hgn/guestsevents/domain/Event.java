@@ -1,27 +1,47 @@
 package com.hgn.guestsevents.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Event {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private String name;
 	private Date date;
 	private String location;
 
-	private List<Guest> guests = new ArrayList<>();
+	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+	private List<Guest> guests;
 
 	public Event() {
 	}
 
-	public Event(String name, Date date, String location, List<Guest> guests) {
+	public Event(Long id, String name, Date date, String location, List<Guest> guests) {
+		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.location = location;
 		this.guests = guests;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
