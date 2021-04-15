@@ -2,7 +2,6 @@ package com.hgn.guestsevents.domain;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Guest {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private Integer age;
@@ -25,7 +24,7 @@ public class Guest {
 	@JoinColumn(name="event_id")
 	private Event event;
 
-	@OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "guest")
 	private List<GuestFamily> family;
 
 	public Guest() {

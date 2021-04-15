@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Event {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private Date date;
@@ -26,12 +26,11 @@ public class Event {
 	public Event() {
 	}
 
-	public Event(Long id, String name, Date date, String location, List<Guest> guests) {
+	public Event(Long id, String name, Date date, String location) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.location = location;
-		this.guests = guests;
 	}
 
 	public Long getId() {
