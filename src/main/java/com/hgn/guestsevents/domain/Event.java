@@ -1,5 +1,6 @@
 package com.hgn.guestsevents.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,66 +12,66 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Event {
+public class Event implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private Date date;
-	private String location;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-	private List<Guest> guests;
+  private String name;
+  private Date date;
+  private String location;
 
-	public Event() {
-	}
+  @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+  private List<Guest> guests;
 
-	public Event(Long id, String name, Date date, String location) {
-		this.id = id;
-		this.name = name;
-		this.date = date;
-		this.location = location;
-	}
+  public Event() {}
 
-	public Long getId() {
-		return id;
-	}
+  public Event(Long id, String name, Date date, String location) {
+    this.id = id;
+    this.name = name;
+    this.date = date;
+    this.location = location;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public Date getDate() {
-		return date;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getLocation() {
-		return location;
-	}
+  public Date getDate() {
+    return date;
+  }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-	public List<Guest> getGuests() {
-		return guests;
-	}
+  public String getLocation() {
+    return location;
+  }
 
-	public void setGuests(List<Guest> guests) {
-		this.guests = guests;
-	}
+  public void setLocation(String location) {
+    this.location = location;
+  }
 
+  public List<Guest> getGuests() {
+    return guests;
+  }
+
+  public void setGuests(List<Guest> guests) {
+    this.guests = guests;
+  }
 }

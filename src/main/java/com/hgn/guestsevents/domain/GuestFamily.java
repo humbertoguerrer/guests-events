@@ -6,69 +6,71 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
-public class GuestFamily {
+public class GuestFamily implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private Integer age;
-	private String kinship;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@ManyToOne
-	@JoinColumn(name="guest_id")
-	private Guest guest;
+  private String name;
+  private Integer age;
+  private String kinship;
 
-	public GuestFamily() {
-	}
+  @ManyToOne
+  @JoinColumn(name = "guest_id")
+  private Guest guest;
 
-	public GuestFamily(Long id, String name, Integer age, String kinship) {
-		this.id = id;
-		this.name = name;
-		this.age = age;
-		this.kinship = kinship;
-	}
+  public GuestFamily() {}
 
-	public Long getId() {
-		return id;
-	}
+  public GuestFamily(Long id, String name, Integer age, String kinship, Guest guest) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.kinship = kinship;
+    this.guest = guest;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public Integer getAge() {
-		return age;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+  public Integer getAge() {
+    return age;
+  }
 
-	public String getKinship() {
-		return kinship;
-	}
+  public void setAge(Integer age) {
+    this.age = age;
+  }
 
-	public void setKinship(String kinship) {
-		this.kinship = kinship;
-	}
+  public String getKinship() {
+    return kinship;
+  }
 
-	public Guest getGuest() {
-		return guest;
-	}
+  public void setKinship(String kinship) {
+    this.kinship = kinship;
+  }
 
-	public void setGuest(Guest guest) {
-		this.guest = guest;
-	}
+  public Guest getGuest() {
+    return guest;
+  }
 
+  public void setGuest(Guest guest) {
+    this.guest = guest;
+  }
 }

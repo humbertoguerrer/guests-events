@@ -1,90 +1,84 @@
 package com.hgn.guestsevents.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
-public class Guest {
+public class Guest implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private Integer age;
-	private String cpf;
-	
-	@ManyToOne
-	@JoinColumn(name="event_id")
-	private Event event;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@OneToMany(mappedBy = "guest")
-	private List<GuestFamily> family;
+  private String name;
+  private Integer age;
+  private String cpf;
 
-	public Guest() {
-	}
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "event_id")
+  private Event event;
 
-	public Guest(Long id, String name, Integer age, String cpf, Event event, List<GuestFamily> family) {
-		this.id = id;
-		this.name = name;
-		this.age = age;
-		this.cpf = cpf;
-		this.event = event;
-		this.family = family;
-	}
+  @OneToMany(mappedBy = "guest")
+  private List<GuestFamily> family;
 
-	public Long getId() {
-		return id;
-	}
+  public Guest() {}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Guest(Long id, String name, Integer age, String cpf, Event event) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.cpf = cpf;
+    this.event = event;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public Integer getAge() {
-		return age;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getCpf() {
-		return cpf;
-	}
+  public Integer getAge() {
+    return age;
+  }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+  public void setAge(Integer age) {
+    this.age = age;
+  }
 
-	public Event getEvent() {
-		return event;
-	}
+  public String getCpf() {
+    return cpf;
+  }
 
-	public void setEvent(Event event) {
-		this.event = event;
-	}
+  public void setCpf(String cpf) {
+    this.cpf = cpf;
+  }
 
-	public List<GuestFamily> getFamily() {
-		return family;
-	}
+  public Event getEvent() {
+    return event;
+  }
 
-	public void setFamily(List<GuestFamily> family) {
-		this.family = family;
-	}
+  public void setEvent(Event event) {
+    this.event = event;
+  }
 
+  public List<GuestFamily> getFamily() {
+    return family;
+  }
+
+  public void setFamily(List<GuestFamily> family) {
+    this.family = family;
+  }
 }

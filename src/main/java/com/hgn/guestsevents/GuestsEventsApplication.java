@@ -21,62 +21,59 @@ import com.hgn.guestsevents.repositories.GuestRepository;
 @SpringBootApplication
 public class GuestsEventsApplication implements CommandLineRunner {
 
-	@Autowired
-	private GuestRepository guestRepository;
+  @Autowired private GuestRepository guestRepository;
 
-	@Autowired
-	private EventRepository eventRepository;
+  @Autowired private EventRepository eventRepository;
 
-	@Autowired
-	private GuestFamilyRepository guestFamilyRepository;
+  @Autowired private GuestFamilyRepository guestFamilyRepository;
 
-	public static void main(String[] args) throws ParseException {
-		SpringApplication.run(GuestsEventsApplication.class, args);
-	}
+  public static void main(String[] args) throws ParseException {
+    SpringApplication.run(GuestsEventsApplication.class, args);
+  }
 
-	@Override
-	public void run(String... args) throws Exception {
+  @Override
+  public void run(String... args) throws Exception {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		Date data = sdf.parse("27/02/2022");
-		Date data2 = sdf.parse("09/02/2023");
+    Date data = sdf.parse("27/02/2022");
+    Date data2 = sdf.parse("09/02/2023");
 
-		Event casamBruno = new Event(null, "Casamento Bruno", data, "Rua das Goiabeiras");
+    Event casamBruno = new Event(null, "Casamento Bruno", data, "Rua das Goiabeiras");
+    Event niverGu = new Event(null, "Aniversário Gustavo", data2, "Rua das Laranjeiras");
 
-		Event niverGu = new Event(null, "Aniversário Gustavo", data2, "Rua das Laranjeiras");
+    List<GuestFamily> famHumberto = new ArrayList<>();
+    Guest humberto = new Guest(null, "humberto", 33, "123345678", casamBruno);
 
-		List<GuestFamily> famHumberto = new ArrayList<>();
-		famHumberto.add(new GuestFamily(null, "jaiza", 68, "mother"));
-		famHumberto.add(new GuestFamily(null, "alcides", 72, "father"));
-		famHumberto.add(new GuestFamily(null, "leticia", 37, "sister"));
+    humberto.setFamily(famHumberto);
+    famHumberto.add(new GuestFamily(null, "jaiza", 68, "mother", humberto));
+    famHumberto.add(new GuestFamily(null, "alcides", 72, "father", humberto));
+    famHumberto.add(new GuestFamily(null, "leticia", 37, "sister", humberto));
 
-		Guest humberto = new Guest(null, "humberto", 33, "123345678", casamBruno, famHumberto);
+    Guest ana = new Guest(null, "ana", 35, "098676554", niverGu);
 
-		List<GuestFamily> famAna = new ArrayList<>();
-		famAna.add(new GuestFamily(null, "fatima", 68, "mother"));
-		famAna.add(new GuestFamily(null, "felipe", 25, "brother"));
+    List<GuestFamily> famAna = new ArrayList<>();
+    ana.setFamily(famAna);
+    famAna.add(new GuestFamily(null, "fatima", 68, "mother", ana));
+    famAna.add(new GuestFamily(null, "felipe", 25, "brother", ana));
 
-		Guest ana = new Guest(null, "ana", 35, "098676554", niverGu, famAna);
+    List<Guest> guestsCasamBruno = new ArrayList<>();
+    guestsCasamBruno.add(humberto);
+    guestsCasamBruno.add(ana);
 
-		List<Guest> guestsCasamBruno = new ArrayList<>();
-		guestsCasamBruno.add(humberto);
-		guestsCasamBruno.add(ana);
+    List<Guest> guestsNiverGU = new ArrayList<>();
+    guestsNiverGU.add(ana);
 
-		List<Guest> guestsNiverGU = new ArrayList<>();
-		guestsNiverGU.add(ana);
+    casamBruno.setGuests(guestsCasamBruno);
+    niverGu.setGuests(guestsNiverGU);
 
-		casamBruno.setGuests(guestsCasamBruno);
+    eventRepository.save(casamBruno);
+    eventRepository.save(niverGu);
 
-		eventRepository.save(casamBruno);
-		eventRepository.save(niverGu);
+    guestFamilyRepository.saveAll(famHumberto);
+    guestRepository.save(humberto);
 
-		guestFamilyRepository.saveAll(famHumberto);
-		guestRepository.save(humberto);
-
-		guestFamilyRepository.saveAll(famAna);
-		guestRepository.save(ana);
-
-	}
-
+    guestFamilyRepository.saveAll(famAna);
+    guestRepository.save(ana);
+  }
 }
