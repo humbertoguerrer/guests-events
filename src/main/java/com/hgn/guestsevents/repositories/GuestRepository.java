@@ -8,4 +8,5 @@ import com.hgn.guestsevents.domain.Guest;
 @Repository
 public interface GuestRepository extends JpaRepository<Guest, String>{
 
+    Guest findById(Long id);
 }

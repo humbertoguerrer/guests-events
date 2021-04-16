@@ -1,5 +1,7 @@
 package com.hgn.guestsevents.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class GuestFamily implements Serializable {
   private Integer age;
   private String kinship;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "guest_id")
   private Guest guest;

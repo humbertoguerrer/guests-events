@@ -1,5 +1,7 @@
 package com.hgn.guestsevents.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,7 @@ public class Event implements Serializable {
   private Date date;
   private String location;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
   private List<Guest> guests;
 
