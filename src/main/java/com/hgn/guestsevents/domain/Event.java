@@ -6,12 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Event implements Serializable {
@@ -25,13 +20,18 @@ public class Event implements Serializable {
   private Date date;
   private String location;
 
+
   @JsonIgnore
-  @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  @JoinTable(
+          name = "event_guests",
+          joinColumns = @JoinColumn(name = "id_event"),
+          inverseJoinColumns = @JoinColumn(name = "id_guest"))
   private List<Guest> guests;
 
   public Event() {}
 
-  public Event(Long id, String name, Date date, String location) {
+  public Event(Long id, String name, Date date, String location, List<Guest> guests) {
     this.id = id;
     this.name = name;
     this.date = date;
@@ -39,10 +39,12 @@ public class Event implements Serializable {
   }
 
   public Long getId() {
+
     return id;
   }
 
   public void setId(Long id) {
+
     this.id = id;
   }
 

@@ -9,4 +9,6 @@ import com.hgn.guestsevents.domain.Guest;
 public interface GuestRepository extends JpaRepository<Guest, String>{
 
     Guest findById(Long id);
+
+    Guest findByCpf(String cpf);
 }
